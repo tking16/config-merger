@@ -72,7 +72,7 @@ def update_dict_subkeys(d, u):
             # Recursively merge subdicts
             r = update_dict_subkeys(d.get(k, {}), v)
             d[k] = r
-        elif isinstance(v, collections.Iterable) and not isinstance(v, str):
+        elif isinstance(v, collections.abc.Iterable) and not isinstance(v, str):
             # Join lists
             dk = d.setdefault(k, [])
             dk += v
@@ -102,7 +102,7 @@ def replace_template_variables(data, flat_parent_replacements={}):
             data[k] = _replace_template(v)
         elif isinstance(v, collections.abc.Mapping):
             replace_template_variables(v, data_chain)
-        elif isinstance(v, collections.Iterable) and not isinstance(v, str):
+        elif isinstance(v, collections.abc.Iterable) and not isinstance(v, str):
             v[:] = list(map(lambda i: _replace_template(i), v))
         #else:
         #    raise Exception('unknown type')
